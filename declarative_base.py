@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -17,13 +17,13 @@ class Pelicula(Base):
     __tablename__ = 'Pelicula'
     idPelicula = Column(Integer, primary_key=True)
     NombrePelicula = Column(String)
-    GeneroPelicula_idGeneroPelicula = Column(String, foreing_key=True)   
+    GeneroPelicula_idGeneroPelicula = Column(String, ForeignKey('GeneroPelicula_idGeneroPelicula.idGeneroPelicula'))   
 
 class GeneroPelicula(Base):
     idGeneroPelicula = Column(Integer, primary_key=True)
     NombreGenero = Column(String)
 
-class Favorito(Base)
+class Favorito(Base):
     idFavorito = Column(Integer, primary_key=True) 
     Pelicula_idPelicula = Column(Integer, foreing_key=True)
     Usuario_idUsuario = Column(Integer,foreing_key=True)
