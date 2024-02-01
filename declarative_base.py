@@ -17,7 +17,7 @@ class Pelicula(Base):
     __tablename__ = 'Pelicula'
     idPelicula = Column(Integer, primary_key=True)
     NombrePelicula = Column(String)
-    GeneroPelicula_idGeneroPelicula = Column(String, ForeignKey('GeneroPelicula_idGeneroPelicula.idGeneroPelicula'))   
+    GeneroPelicula_idGeneroPelicula = Column(String, ForeignKey('Genero.idGeneroPelicula'))   
 
 class GeneroPelicula(Base):
     idGeneroPelicula = Column(Integer, primary_key=True)
@@ -25,8 +25,8 @@ class GeneroPelicula(Base):
 
 class Favorito(Base):
     idFavorito = Column(Integer, primary_key=True) 
-    Pelicula_idPelicula = Column(Integer, foreing_key=True)
-    Usuario_idUsuario = Column(Integer,foreing_key=True)
+    Pelicula_idPelicula = Column(Integer, ForeignKey('Pelicula.idPelicula'))
+    Usuario_idUsuario = Column(Integer, ForeignKey('Usuario.idUsuario'))
 
 
 engine = create_engine('mysql://root:c1E3g4HC25h2CA5HHgedDd6D6-f6DE3H@monorail.proxy.rlwy.net:29549/Crewwpelis')
