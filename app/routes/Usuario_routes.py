@@ -7,8 +7,8 @@ bp = Blueprint('usuario', __name__)
 @bp.route('/')
 def index():
     data = Usuario.query.all()
-    #return render_template('index.html', data=data)
-    return "entra al index"
+    return render_template('Usuarios/index2.html', data=data)
+    #return "entra al index"
 
 
 @bp.route('/Usuario/Registro', methods=['GET', 'POST'])
