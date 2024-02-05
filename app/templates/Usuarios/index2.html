@@ -15,6 +15,7 @@
     <header>
         <!-- header inner -->
         <div class="header">
+         <div id="BLR"><a class="read_more">Iniciar Sesion</a> <a class="read_more" href="{{url_for('')}}">Registrar Usuario</a></div>
            <div class="container">
               <div class="row">
                  <div class="col-md-12 col-sm-3 col logo_section">
@@ -29,15 +30,16 @@
               </div>
            </div>
         </div>
-        <h1>GENEROS</h1>
-        <form>
-            <select>
+        <center><h5>GENEROS</h5></center>
+        <center><form>
+            <select class="read_more">
                 {% for genero in generos %}
                     <option value="{{ genero.idGenero }}">{{ genero.NombreGenero }}</option>
                 {% endfor %}
             </select>
-        </form>        
+        </form></center>        
      </header>
+     
      <div id="about" class="about">
       <div class="container">
          <div class="row">
