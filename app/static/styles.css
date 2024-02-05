@@ -30,6 +30,11 @@
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
 
+#botones{
+     align-items: center;
+     display: flex;
+}
+
 * {
      box-sizing: border-box !important;
 }
@@ -275,14 +280,14 @@ button {
 
 .navigation.navbar-dark .navbar-nav .nav-link:focus,
 .navigation.navbar-dark .navbar-nav .nav-link:hover {
-     color: #33f033;
+     color: #098dfa;
 }
 
 .navigation.navbar-dark .navbar-nav .active>.nav-link,
 .navigation.navbar-dark .navbar-nav .nav-link.active,
 .navigation.navbar-dark .navbar-nav .nav-link.show,
 .navigation.navbar-dark .navbar-nav .show>.nav-link {
-     color: #33f033;
+     color: #000103;
 }
 
 .navbar-expand-md .navbar-nav {
@@ -376,7 +381,7 @@ button {
 #myCarousel .carousel-control-next:hover,
 #myCarousel .carousel-control-prev:focus,
 #myCarousel .carousel-control-next:focus {
-     background: #16d316;
+     background: rgb(4, 141, 253);
      color: #fff;
      width: 57px;
      height: 57px;
@@ -424,7 +429,7 @@ button {
 }
 
 .green {
-     color: #16e816 !important;
+     color: rgb(5, 139, 248) !important;
 }
 
 .d_flex {
@@ -447,7 +452,7 @@ button {
 }
 
 .read_more:hover {
-     background: #16e816;
+     background: 098dfa;
      color: #fff;
      transition: ease-in all 0.5s;
 }
@@ -566,6 +571,7 @@ button {
 
 .gallery .gallery_img figure {
      margin: 0;
+     height: 435px;
 }
 
 .gallery .gallery_img figure img {
@@ -650,7 +656,7 @@ button {
 #design .carousel-control-next:hover,
 #design .carousel-control-prev:focus,
 #design .carousel-control-next:focus {
-     background: #16d316;
+     background: #039bf3;
      color: #000;
 }
 
@@ -756,7 +762,7 @@ button {
 }
 
 .latest_news .news_box .news_room ul li a:hover {
-     color: #16e816 !important;
+     color: #08a8f3 !important;
 }
 
 .latest_news .news_box .news_room ul li:last-child a {
@@ -811,7 +817,7 @@ button {
      margin-top: 60px;
      text-align: left;
      padding: 0 30px 40px 30px;
-     border: #16d316 solid 1px;
+     border: #04bbf3 solid 1px;
      border-radius: 5px;
 }
 
@@ -859,7 +865,7 @@ button {
 #testimon .carousel-control-next:hover,
 #testimon .carousel-control-prev:focus,
 #testimon .carousel-control-next:focus {
-     background: #16d316;
+     background: #05d1f5;
      color: #000;
 }
 
@@ -1007,7 +1013,7 @@ ul.social_icon li a {
 
 ul.social_icon li a:hover {
      color: #fff;
-     background: #33f033;
+     background: #04daf7;
 }
 
 .pad_roght2 {
@@ -1053,7 +1059,7 @@ ul.link_menu li a {
 }
 
 ul.link_menu li a:hover {
-     color: #33f033;
+     color: #088bf7;
 }
 
 .bottom_form {
@@ -1092,7 +1098,7 @@ ul.link_menu li a:hover {
 
 .sub_btn:hover {
      transition: ease-in all 0.5s;
-     color: #33f033;
+     color: #07d1f5;
 }
 
 #hkh *::placeholder {
@@ -1120,7 +1126,7 @@ ul.link_menu li a:hover {
 }
 
 .copyright a:hover {
-     color: #33f033;
+     color: #04e2f1;
 }
 
 
@@ -1130,5 +1136,5 @@ ul.link_menu li a:hover {
 /** endinner page css **/
 
 .in_page .header {
-     border-bottom: #3fe43d solid 2px;
+     border-bottom: #06e5f5 solid 2px;
 }
