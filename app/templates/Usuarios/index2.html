@@ -10,8 +10,51 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='jquery.fancybox.min.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome.css')}}">
     <title>CrewwPelis</title>
+
+    <style>
+      #videoPopup {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #000;
+          z-index: 1000;
+      }
+
+      #closeButton {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          color: #fff;
+          cursor: pointer;
+      }
+  </style>    
+
+
 </head>
 <body>
+
+
+   <div id="videoPopup">
+       <span id="closeButton" onclick="closeVideoPopup()">&times;</span>
+       <video width="600" height="400" controls>
+           <source src="{{ url_for('static', filename='videos/KunFuPanda4EnCines.mp4') }}" type="video/mp4">
+           Tu navegador no soporta el elemento de video.
+       </video>
+   </div>
+   
+   <script>
+       function openVideoPopup() {
+           document.getElementById('videoPopup').style.display = 'block';
+       }
+   
+       function closeVideoPopup() {
+           document.getElementById('videoPopup').style.display = 'none';
+       }
+   </script>   
+ 
+   
     <header>
         <!-- header inner -->
         <div class="header">
@@ -47,14 +90,14 @@
                <div class="titlepage">
                   <h2>KUNG FU PANDA<span class="green"> 4</span></h2>
                   <p>Kung Fu Panda 4 es una película de comedia animada de artes marciales producida por DreamWorks Animation y distribuida por Universal Pictures. Es la cuarta entrega de la franquicia Kung Fu Panda, y la secuela de Kung Fu Panda 3</p>
-                  <a class="read_more" href="{{url_for('pelicula.Upload')}}">Ver Pelicula</a>
+                  <button class="read_more" onclick="openVideoPopup()">Ver Pelicula</button>
                   <button class="read_more">Descargar Pelicula</button>
                </div>
             </div>
             <div class="col-md-7">
                <div class="about_img">
-                  <figure><img src="{{ url_for('static', filename='images/kunfupanda4.jpg') }}"></figure>
-               </div>
+                  <img src="{{ url_for('static', filename='images/kunfupanda4.jpg') }}">
+               </div> 
             </div>
          </div>
       </div>
