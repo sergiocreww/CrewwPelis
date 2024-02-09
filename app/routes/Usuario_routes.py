@@ -25,22 +25,9 @@ def Registro():
     
     return render_template('Usuarios/Registro.html')
 
-@bp.route('/Usuario/Login', methods=['GET' , 'POST'])
-def Login():
-    if request.method == 'POST':
-        NombreUsuario = request.form['Nombre']
-        ContrasenaUsuario = request.form['Contrasena']
 
-        usuario = Usuario.query.filter_by(NombreUsuario=NombreUsuario, ContrasenaUsuario=ContrasenaUsuario).first()
 
-        if usuario:
-            # Iniciar sesión y redirigir a la página principal (o a donde desees)
-            session['idUsuario'] = usuario.idUsuario
-            return render_template('Usuarios/index2.html')
-        else:
-            # Mostrar un mensaje de error si las credenciales son incorrectas
-            error = 'Credenciales incorrectas. Inténtalo de nuevo.'
-            return render_template('Usuarios/Registro.html', error=error)
+
 
 
 

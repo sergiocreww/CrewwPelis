@@ -9,12 +9,23 @@
     <title>CrewwPelis Registro</title>
 </head>
 <body>
-
+  <center><div class="header">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12 col-sm-3 col logo_section">
+               <div class="full">
+                  <div class="center-desk">
+                     <div class="logo">
+                        <img src="{{ url_for('static', filename='images/Logo2.jpeg') }}">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div></center>  
+   <div id="gallery"  class="gallery">
     <div class="form">
-      
-        <ul class="tab-group">
-          <li class="tab active"><a href="#signup">Registrese o Inice Sesion</a></li>
-        </ul>
         
 
           <div id="signup">   
@@ -32,7 +43,7 @@
               <input type="password" id="ContrasenaUsuario" name="Contrasena" required>
             </div>
             
-            <center><button type="submit" class="read_more">Registro</button></center>
+            <center><button type="submit" class="read_more">Registrar Usuario</button></center>
             
             </form>
 
@@ -46,7 +57,7 @@
           <div id="login">   
             <h1>Inicie Sesion</h1>
             
-            <form method="POST" action="{{ url_for('usuario.Login') }}">
+            <form method="POST" action="">
             
               <div class="field-wrap">
 
@@ -60,15 +71,14 @@
             
             <p class="forgot"><a href="#">Forgot Password?</a></p>
             
-            <center><button type="submit" class="read_more">Inicie Sesion</button></center>
+            <center><button type="submit" class="read_more">Iniciar Sesion</button></center>
             
             </form>
   
           </div>
-          
-        </div><!-- tab-content -->
         
-  </div> <!-- /form -->    
+  </div> <!-- /form -->   
+</div>   
     
 </body>
 </html>
