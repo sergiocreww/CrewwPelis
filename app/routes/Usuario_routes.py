@@ -1,4 +1,5 @@
 from flask import Flask, Blueprint, render_template, request, redirect, url_for, session
+from flask_bcrypt import generate_password_hash
 from app.models.Usuario import Usuario
 from app import db
 
@@ -17,7 +18,7 @@ def Registro():
         NombreUsuario = request.form['Nombre']
         ContrasenaUsuario = request.form['Contrasena']
 
-        new_usuario = Usuario(NombreUsuario=NombreUsuario, ContrasenaUsuario=ContrasenaUsuario)
+        new_usuario = Usuario(NombreUsuario='Nombre', ContrasenaUsuario=generate_password_hash('Contrasena'))
         db.session.add(new_usuario)
         db.session.commit()
  

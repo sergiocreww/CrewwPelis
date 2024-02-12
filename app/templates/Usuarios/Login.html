@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesFor.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
-<script src="../../static/src/ScriptFor.js" defer></script>      
+    <script src="../../static/src/ScriptFor.js" defer></script>      
     <title>CrewwPelis Registro</title>
 </head>
 <body>
@@ -26,28 +26,30 @@
    </div></center>  
    <div id="gallery"  class="gallery">
     <div class="form">
-        
-
-          <div id="signup">   
-            <h1>Regístrate gratis</h1>
+          <br>
+          <br>
+          
+          <div id="login">   
+            <h1>Inicie Sesion</h1>
             
-            <form method="POST" action="{{ url_for('usuario.Registro') }}">
-  
-            <div class="field-wrap">
-
-              <input type="text" id="NombreUsuario" name="Nombre" required>
-            </div>
+            <form method="POST" action="{{ url_for('login.protected') }}">
             
-            <div class="field-wrap">
-
-              <input type="password" id="ContrasenaUsuario" name="Contrasena" required>
-            </div>
-            
-            <center><button type="submit" class="read_more">Registrar Usuario</button></center>
-            
+              <div class="field-wrap">
+                <input type="text" id="NombreUsuario" name="nombre_usuario" required>
+              </div>
+              
+              <div class="field-wrap">
+                <input type="password" id="ContrasenaUsuario" name="contrasena" required>
+              </div>
+              
+              <p class="forgot"><a href="#">Forgot Password?</a></p>
+              
+              <center><button type="submit" class="read_more">Iniciar Sesion</button></center>
+              
             </form>
-
-          </div>        
+          </div>
+          
+        
   </div> <!-- /form -->   
 </div>   
     
