@@ -48,8 +48,8 @@
                <div class="titlepage">
                   <h2>KUNG FU PANDA<span class="green"> 4</span></h2>
                   <p>Kung Fu Panda 4 es una película de comedia animada de artes marciales producida por DreamWorks Animation y distribuida por Universal Pictures. Es la cuarta entrega de la franquicia Kung Fu Panda, y la secuela de Kung Fu Panda 3</p>
-                  <a class="read_more" href="{{url_for('pelicula.Upload')}}" >Ver Pelicula</a>
-                  <button class="read_more">Descargar Pelicula</button>
+                  <a class="read_more" href="{{url_for('pelicula.mostrar_peliculas')}}" >Ver Pelicula</a>
+                  <a class="read_more" href="">Descargar Pelicula</a>
                </div>
             </div>
             <div class="col-md-7">
@@ -72,8 +72,14 @@
                <div class="titlepage">
                   <h2>DEADPOOL<span class="green"> 3</span></h2>
                   <p>Lobezno se recupera de sus heridas cuando se cruza con el bocazas, Deadpool, que ha viajado en el tiempo para curarlo con la esperanza de hacerse amigos y formar un equipo para acabar con un enemigo común</p>
+                  {% if 'user_id' in session %}
+                  <a class="read_more" href="{{url_for('pelicula.mostrar_peliculas')}}">Ver Pelicula</a>
+                  <a class="read_more">Descargar Pelicula</a>
+                  {% else %}
                   <button class="read_more">Ver Pelicula</button>
                   <button class="read_more">Descargar Pelicula</button>
+                  <p>Inicia sesión para acceder a estas funciones.</p>
+              {% endif %}
                </div>
             </div>
          </div>

@@ -4,9 +4,11 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from app.models.Usuario import Usuario
 from app import db
 
+
 bp = Blueprint('usuario', __name__)
 
 login_manager = LoginManager()
+
 
 @bp.route('/Index')
 def index():
@@ -41,6 +43,8 @@ def IniciarSesion():
         if usuario and check_password_hash(usuario.ContrasenaUsuario, ContrasenaUsuario):
             login_user(usuario)
             flash('Inicio de sesión exitoso.', 'success')
+            session['user_id'] = usuario.idUsuario 
+            session['user_username'] = usuario.NombreUsuario
             return render_template('Usuarios/index2.html')
         else:
             flash('Credenciales incorrectas. Inténtalo de nuevo.', 'danger')
@@ -55,6 +59,5 @@ def CerrarSesion():
     flash('Cierre de sesión exitoso.', 'success')
     return redirect(url_for('usuario.index2'))
 
-@login_manager.user_loader
-def load_user(user_id):
-    return Usuario.query.get(int(user_id))
+ 
+

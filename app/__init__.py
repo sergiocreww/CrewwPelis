@@ -12,6 +12,11 @@ def create_app():
     login_manager = LoginManager(app)
     login_manager.init_app(app)
 
+    @login_manager.user_loader
+    def load_user(idUsuario):
+        from app.models.Usuario import Usuario
+        return Usuario.query.get(int(idUsuario))    
+
     
     db.init_app(app)
 

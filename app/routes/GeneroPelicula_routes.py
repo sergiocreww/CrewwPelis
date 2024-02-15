@@ -8,4 +8,3 @@ bp = Blueprint('genero', __name__)
 def index():
     generos = Genero.query.all()
     return render_template('Usuarios/index2.html', generos=generos)
-    #return "Entra al index"
