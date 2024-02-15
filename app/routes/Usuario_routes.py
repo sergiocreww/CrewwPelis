@@ -26,7 +26,7 @@ def Registro():
         db.session.commit()
 
         flash('Registro exitoso. Ahora puedes iniciar sesión.', 'success')
-        return redirect(url_for('usuario.IniciarSesion'))
+        return render_template('Usuarios/Login.html')
 
     return render_template('Usuarios/Registro.html')
 
@@ -41,9 +41,10 @@ def IniciarSesion():
         if usuario and check_password_hash(usuario.ContrasenaUsuario, ContrasenaUsuario):
             login_user(usuario)
             flash('Inicio de sesión exitoso.', 'success')
-            return redirect(url_for('usuario.index2'))
+            return render_template('Usuarios/index2.html')
         else:
             flash('Credenciales incorrectas. Inténtalo de nuevo.', 'danger')
+            return render_template('Usuarios/Login.html')
 
     return render_template('Usuarios/Login.html')
 
