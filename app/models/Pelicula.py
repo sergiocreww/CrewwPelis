@@ -5,5 +5,6 @@ class Pelicula(db.Model):
     idPelicula = db.Column(db.Integer, primary_key=True)
     NombrePelicula = db.Column(db.String(50), nullable=False)
     GeneroPelicula_idGeneroPelicula = db.Column(db.Integer, db.ForeignKey('genero.idGenero'))
+    Imagen = db.Column(db.String(100), nullable=False)
 
     favoritos = db.relationship('Favorito', backref='pelicula', lazy=True)
