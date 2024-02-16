@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import secrets
 from flask_login import LoginManager
+import os
 
 db = SQLAlchemy()
 
@@ -11,6 +12,8 @@ def create_app():
     app.secret_key = secrets.token_hex(16)  
     login_manager = LoginManager(app)
     login_manager.init_app(app)
+
+    app.config['UPLOAD_FOLDER'] = './app/static/images'
 
     @login_manager.user_loader
     def load_user(idUsuario):

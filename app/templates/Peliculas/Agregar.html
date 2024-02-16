@@ -3,19 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesFor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
     <title>Insertar Película</title>
 </head>
 <body>
-    <h1>Insertar Nueva Película</h1>
-    <form method="POST" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <label for="NombrePelicula">Nombre de la Película:</label>
-        {{ form.NombrePelicula(size=50) }}<br>
-        <label for="GeneroPelicula_idGeneroPelicula">ID del Género:</label>
-        {{ form.GeneroPelicula_idGeneroPelicula }}<br>
-        <label for="Imagen">Imagen de la Película:</label>
-        {{ form.Imagen }}<br>
-        {{ form.submit() }}
-    </form>
+    <center><div class="header">
+        <div class="container">
+           <div class="row">
+              <div class="col-md-12 col-sm-3 col logo_section">
+                 <div class="full">
+                    <div class="center-desk">
+                       <div class="logo">
+                          <img src="{{ url_for('static', filename='images/Logo2.jpeg') }}">
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div></center>  
+    <div id="gallery"  class="gallery">
+        <div class="form">    
+        <h1>Insertar Nueva Película</h1>
+        <form method="POST" action="{{ url_for('pelicula.insertar_pelicula') }}" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <label for="NombrePelicula">Nombre de la Película:</label>
+            {{ form.NombrePelicula(size=50) }}<br>
+            <label for="GeneroPelicula_idGeneroPelicula">Género:</label>
+            {{ form.GeneroPelicula_idGeneroPelicula.label }}
+            {{ form.GeneroPelicula_idGeneroPelicula(class="form-control") }} <br>
+            <label for="Imagen">Imagen de la Película:</label>
+            <input type="file" name="Imagen" accept="image/*">  <!-- Input para subir la imagen -->
+            <br>
+            <center><button type="submit" class="read_more">Subir Pelicula</button></center>
+        </form>        
+        </div>
+    </div>
+        
 </body>
 </html>

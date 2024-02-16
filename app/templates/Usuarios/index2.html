@@ -16,7 +16,7 @@
     <header>
         <!-- header inner -->
         <div class="header">
-         <div id="BLR"><a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a></div>
+         <div id="BLR"><a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a>{% if 'user_id' in session %}<a class="read_more" href="">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
            <div class="container">
               <div class="row">
                  <div class="col-md-12 col-sm-3 col logo_section">
@@ -31,15 +31,16 @@
               </div>
            </div>
         </div>
-        <center><h5>GENEROS</h5></center>
-        <center><form>
-            <select class="read_more">
+
+        <center><h5>GENEROS</h5></center>      
+        <form>
+         <center><a class="read_more" href="">Modificar Usuario</a><select class="read_more">
                 {% for genero in generos %}
                     <option value="{{ genero.idGenero }}">{{ genero.NombreGenero }}</option>
                 {% endfor %}
-            </select>
-        </form></center> 
-        <a class="read_more" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a>       
+            </select><a class="read_more" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a></center>
+            
+        </form>          
      </header>
      
      <div id="about" class="about">

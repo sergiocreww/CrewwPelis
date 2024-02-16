@@ -42,6 +42,7 @@ def IniciarSesion():
 
         if usuario and check_password_hash(usuario.ContrasenaUsuario, ContrasenaUsuario):
             login_user(usuario)
+            session['rol'] = Usuario.Rol
             flash('Inicio de sesión exitoso.', 'success')
             session['user_id'] = usuario.idUsuario 
             session['user_username'] = usuario.NombreUsuario
@@ -52,12 +53,23 @@ def IniciarSesion():
 
     return render_template('Usuarios/Login.html')
 
+@bp.route('/admin_dashboard')
+def admin_dashboard():
+    # Verificar si el usuario tiene el rol de Administrador
+    if 'rol' in session and session['rol'] == 'Administrador':
+        return render_template('Usuarios/index2.html')
+    else:
+        flash('Acceso no autorizado', 'error')
+        return render_template('Usuarios/index2.html')
+
+
 @bp.route('/Usuario/CerrarSesion')
 @login_required
 def CerrarSesion():
     logout_user()
     flash('Cierre de sesión exitoso.', 'success')
     return redirect(url_for('usuario.index2'))
+
 
  
 
