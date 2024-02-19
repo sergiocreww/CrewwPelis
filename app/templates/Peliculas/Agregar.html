@@ -27,16 +27,36 @@
         <div class="form">    
         <h1>Insertar Nueva Película</h1>
         <form method="POST" action="{{ url_for('pelicula.insertar_pelicula') }}" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <label for="NombrePelicula">Nombre de la Película:</label>
-            {{ form.NombrePelicula(size=50) }}<br>
-            <label for="GeneroPelicula_idGeneroPelicula">Género:</label>
-            {{ form.GeneroPelicula_idGeneroPelicula.label }}
-            {{ form.GeneroPelicula_idGeneroPelicula(class="form-control") }} <br>
-            <label for="Imagen">Imagen de la Película:</label>
-            <input type="file" name="Imagen" accept="image/*">  <!-- Input para subir la imagen -->
-            <br>
-            <center><button type="submit" class="read_more">Subir Pelicula</button></center>
+            <div>
+               <h2>Nueva Pelicula</h2>
+               <div>
+                  <label for="NombrePelicula">Nombre Pelicula:</label>
+               </div>
+               <div>
+                  <input type="text" id="NombrePelicula" name="NombrePelicula">
+               </div>
+               <div>
+                  <div>
+                     <label for="GeneroPelicula">Gnero Pelicula:</label>
+                  </div>
+                  <div>
+                     <select name="GeneroPelicula" id="GeneroPelicula">
+                        {% for genero in generos %}
+                        <option value="{{genero.idGenero}}">{{genero.NombreGenero}}</option>
+                        {% endfor %}
+                     </select>
+                  </div>
+               </div> 
+            </div>
+            <div>
+               <div>
+                  <label for="ImagenPelicula">Imagen:</label>
+               </div>
+               <div>
+                  <input type="file" id="ImagenPelicula" name="ImagenPelicula">
+               </div>
+            </div>
+            <center><button class="read_more" href="{{url_for(pelicula.insertar_pelicula)}}"></button></center>
         </form>        
         </div>
     </div>

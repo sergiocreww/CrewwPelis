@@ -16,7 +16,7 @@
     <header>
         <!-- header inner -->
         <div class="header">
-         <div id="BLR">{% if 'user_id' in session %}<label class="read_more">Sesion Iniciada</label><a class="read_more" href="{{url_for('usuario.CerrarSesion')}}">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
+         <div id="BLR">{% if 'user_id' in session %}<label class="read_more">Sesion Iniciada</label><a class="read_more" href="{{url_for('usuario.CerrarSesion')}}">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a  class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
             <!-- Agrega esto después de los botones de inicio y cierre de sesión -->
             {% if 'user_id' in session %}
             <div id="buscador" class="buscador">
@@ -51,7 +51,7 @@
                {% for genero in generos %}
                     <option value="{{ genero.idGenero }}">{{ genero.NombreGenero }}</option>
                 {% endfor %}
-            </select>{% endif %}{% if 'user_id' in session %}<a class="read_more" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a></center>{% endif %}
+            </select>{% endif %}{% if 'user_id' in session %}<a class="read_more" href="">Insertar Pelicula</a></center>{% endif %}
             
         </form>          
      </header>
@@ -100,7 +100,7 @@
          </div>
       </div>
    </div>      
-   <div id="gallery"  class="gallery">
+   <!-- <div id="gallery"  class="gallery">
       <div class="container">
          <div class="row">
             <div class="col-md-12">
@@ -221,7 +221,38 @@
             </div>
          </div>
       </div>
-   </div>   
+   </div>    -->
+
+<!-- En tu archivo 'index2.html' -->
+
+<div id="gallery"  class="gallery">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="titlepage">
+               <h2>Las mejores <span class="green">pelis</span></h2>
+               <p>"Donde las luces se apagan y la magia comienza"</p>
+            </div>
+         </div>
+</div>
+
+{% block content %}
+    <h1>Listado de Películas</h1>
+    <ul>
+        {% for pelicula in peliculas %}
+            <li>
+                <strong>ID:</strong> {{ pelicula.idPelicula }}<br>
+                <strong>Título:</strong> {{ pelicula.NombrePelicula }}<br>
+                <strong>Género:</strong> {{ pelicula.GeneroPelicula_idGeneroPelicula }}<br>
+                {% if pelicula.Imagen %}
+                    <img src="{{ url_for('static', filename='images/' + pelicula.Imagen) }}" alt="{{ pelicula.NombrePelicula }}">
+                {% endif %}
+                <br>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
    
 </body>
 </html>

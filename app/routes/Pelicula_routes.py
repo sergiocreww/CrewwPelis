@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, redirect, url_for, jsonif
 from app.models.Pelicula import Pelicula
 from app.models.GeneroPelicula import Genero 
 from app import db
-from app.forms.forms import PeliculaForm
 import os
 import app
 
@@ -23,49 +22,37 @@ bp = Blueprint('pelicula', __name__)
 def mostrar_peliculas():
     # Obtener todas las películas desde la base de datos
     peliculas = Pelicula.query.all()
-
-    # Iterar sobre las películas e imprimir información (puedes cambiar esto por renderizar en HTML)
-    for pelicula in peliculas:
-        print(f"ID: {pelicula.idPelicula}, Título: {pelicula.NombrePelicula}, Género: {pelicula.GeneroPelicula_idGeneroPelicula}")
-
     # Renderizar una plantilla HTML que muestre la información de las películas
-    return render_template('Peliculas/VerPelicula.html', peliculas=peliculas)
+    return render_template('Usuarios/index2.html', peliculas=peliculas)
 
 
 
-@bp.route('/insertar_pelicula', methods=['GET', 'POST'])
+@bp.route('/insertar_pelicula', methods=['GET', 'POST']) 
 def insertar_pelicula():
-    form = PeliculaForm()
+    from app import create_app
+    app = create_app
 
-    form.GeneroPelicula_idGeneroPelicula.choices = [(g.idGenero, g.NombreGenero) for g in Genero.query.all()]
+    if request.method == 'POST': 
+            NombrePelicula = request.form['NombrePelicula']
+            GeneroPelicula_idGeneroPelicula = request.form['GeneroPelicula'] 
 
-    if form.validate_on_submit():
-        nombre_pelicula = form.NombrePelicula.data
-        genero_id = form.GeneroPelicula_idGeneroPelicula.data
+            imagen = request.files['ImagenPelicula']
 
-        imagen = form.Imagen.data
+            if imagen:
+                 filename = secure_filename(imagen.filename)
+                 imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                 ruta_imagen = filename
+            else:
+                 ruta_imagen = 'static/images/defaul.jpg'
 
-        if imagen and allowed_file(imagen.filename):
-            filename = secure_filename(imagen.filename)
-
-            # Guardar la imagen de forma segura en el sistema de archivos
-            ruta_imagen = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            imagen.save(ruta_imagen)
-
-            # Almacenar el nombre del archivo en la base de datos
-            nueva_pelicula = Pelicula(
-                NombrePelicula=nombre_pelicula,
-                GeneroPelicula_idGeneroPelicula=genero_id,
-                Imagen=filename  # Guardar el nombre del archivo, no la ruta completa
-            )
-
-            db.session.add(nueva_pelicula)
+            new_pelicula = Pelicula(NombrePelicula=NombrePelicula, GeneroPelicula_idGeneroPelicula=GeneroPelicula_idGeneroPelicula, imagen=ruta_imagen)
+            db.session.add(new_pelicula)
             db.session.commit()
 
-            flash('Película insertada correctamente', 'success')
-            return render_template('Peliculas/Agregar.html')
+            return redirect(url_for('usuario.index'))
+    generos= Genero.query.all()
+    return render_template('Peliculas/Agregar.html', generos = generos)
 
-    return render_template('Peliculas/Agregar.html', form=form)
 
 
 @bp.route('/buscar_pelicula_por_id/<int:id_pelicula>', methods=['GET', 'POST'])
