@@ -29,6 +29,40 @@
 @import url(nice-select.css);
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
+.buscador{
+     
+     display: flex;
+     width: 100%;
+     height: auto;
+     padding-left: 5px;
+     justify-content: right;
+     margin-top: 20px; /* Ajusta el espacio superior según tus preferencias */
+     margin-bottom: 20px; /* Ajusta el espacio inferior según tus preferencias */
+     text-align: center;
+     align-items: baseline ; /* Alinea verticalmente los elementos del contenedor */
+}
+
+
+
+#buscador form {
+     display: inline-block; /* Para centrar el formulario */    
+ }
+
+
+ #buscador input[type="text"] {
+     width: 175px; /* Ajusta el ancho del campo de búsqueda según tus preferencias */
+ }
+
+ #buscador h5 {
+     margin-right: 5px; /* Ajusta el espacio entre el título y el campo de búsqueda */
+ }
+ 
+ #buscador button {
+     padding: 4px 10px;
+     cursor: pointer;
+ }
+
+ 
 
 .read_mo {
      max-width: 243px;

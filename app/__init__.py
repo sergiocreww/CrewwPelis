@@ -1,16 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import secrets
 from flask_login import LoginManager
 import os
 
 db = SQLAlchemy()
 
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object('config.Config') 
-    app.secret_key = secrets.token_hex(16)  
-    login_manager = LoginManager(app)
+    migrate = Migrate(app, db)
+    app.secret_key = secrets.token_hex(16) 
+    login_manager = LoginManager() 
     login_manager.init_app(app)
 
     app.config['UPLOAD_FOLDER'] = './app/static/images'

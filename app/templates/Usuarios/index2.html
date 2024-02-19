@@ -16,8 +16,19 @@
     <header>
         <!-- header inner -->
         <div class="header">
-         <div id="BLR"><a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a>{% if 'user_id' in session %}<a class="read_more" href="">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
-           <div class="container">
+         <div id="BLR">{% if 'user_id' in session %}<label class="read_more">Sesion Iniciada</label><a class="read_more" href="{{url_for('usuario.CerrarSesion')}}">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
+            <!-- Agrega esto después de los botones de inicio y cierre de sesión -->
+            {% if 'user_id' in session %}
+            <div id="buscador" class="buscador">
+               <h5 id="buscar">BUSCAR PELICULA</h5>
+               <form action="{{ url_for('pelicula.buscar_pelicula_por_id', id_pelicula=1) }}" method="GET">
+                  <input type="text" name="query" placeholder="Ingrese el título de la película">
+                  <button class="" type="submit">Buscar</button>
+               </form>
+            </div>
+            {% else %}
+            {% endif %}
+             <div class="container">
               <div class="row">
                  <div class="col-md-12 col-sm-3 col logo_section">
                     <div class="full">
@@ -32,13 +43,15 @@
            </div>
         </div>
 
-        <center><h5>GENEROS</h5></center>      
+        {% if 'user_id' in session %}<center><h5>GENEROS</h5></center>{% endif %}     
         <form>
-         <center><a class="read_more" href="">Modificar Usuario</a><select class="read_more">
-                {% for genero in generos %}
+         <center>{% if 'user_id' in session %}<a class="read_more" href="">Modificar Usuario</a>{% endif %}
+            {% if 'user_id' in session %}
+            <select class="read_more">
+               {% for genero in generos %}
                     <option value="{{ genero.idGenero }}">{{ genero.NombreGenero }}</option>
                 {% endfor %}
-            </select><a class="read_more" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a></center>
+            </select>{% endif %}{% if 'user_id' in session %}<a class="read_more" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a></center>{% endif %}
             
         </form>          
      </header>

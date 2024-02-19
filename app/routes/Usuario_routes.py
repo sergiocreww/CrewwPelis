@@ -22,7 +22,7 @@ def Registro():
         ContrasenaUsuario = request.form['Contrasena']
 
         # Utiliza las variables obtenidas de la solicitud en lugar de cadenas constantes
-        hashed_password = generate_password_hash(ContrasenaUsuario)
+        hashed_password = generate_password_hash(ContrasenaUsuario).decode('utf-8')
         new_usuario = Usuario(NombreUsuario=NombreUsuario, ContrasenaUsuario=hashed_password)
         db.session.add(new_usuario)
         db.session.commit()
@@ -42,7 +42,7 @@ def IniciarSesion():
 
         if usuario and check_password_hash(usuario.ContrasenaUsuario, ContrasenaUsuario):
             login_user(usuario)
-            session['rol'] = Usuario.Rol
+            session['rol'] = usuario.Rol
             flash('Inicio de sesión exitoso.', 'success')
             session['user_id'] = usuario.idUsuario 
             session['user_username'] = usuario.NombreUsuario
@@ -56,7 +56,7 @@ def IniciarSesion():
 @bp.route('/admin_dashboard')
 def admin_dashboard():
     # Verificar si el usuario tiene el rol de Administrador
-    if 'rol' in session and session['rol'] == 'Administrador':
+    if current_user.is_authenticated and current_user.Rol == 'Administrador':
         return render_template('Usuarios/index2.html')
     else:
         flash('Acceso no autorizado', 'error')
@@ -68,7 +68,7 @@ def admin_dashboard():
 def CerrarSesion():
     logout_user()
     flash('Cierre de sesión exitoso.', 'success')
-    return redirect(url_for('usuario.index2'))
+    return redirect(url_for('usuario.index'))
 
 
  

@@ -68,6 +68,24 @@ def insertar_pelicula():
     return render_template('Peliculas/Agregar.html', form=form)
 
 
+@bp.route('/buscar_pelicula_por_id/<int:id_pelicula>', methods=['GET', 'POST'])
+def buscar_pelicula_por_id(id_pelicula):
+    # Buscar la película en la base de datos por su ID
+    pelicula = Pelicula.query.get(id_pelicula)
+
+    if pelicula:
+        # Devolver la información de la película en formato JSON (puedes cambiar esto según tus necesidades)
+        return jsonify({
+            'idPelicula': pelicula.idPelicula,
+            'NombrePelicula': pelicula.NombrePelicula,
+            'GeneroPelicula_idGeneroPelicula': pelicula.GeneroPelicula_idGeneroPelicula,
+            'Imagen': pelicula.Imagen
+        })
+    else:
+        # Si no se encuentra la película, devolver un mensaje de error
+        return jsonify({'error': 'Película no encontrada'}), 404
+
+
 
 
 
