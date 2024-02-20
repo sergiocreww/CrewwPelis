@@ -30,7 +30,7 @@ def mostrar_peliculas():
 @bp.route('/insertar_pelicula', methods=['GET', 'POST']) 
 def insertar_pelicula():
     from app import create_app
-    app = create_app
+    app = create_app()
 
     if request.method == 'POST': 
             NombrePelicula = request.form['NombrePelicula']
@@ -45,7 +45,7 @@ def insertar_pelicula():
             else:
                  ruta_imagen = 'static/images/defaul.jpg'
 
-            new_pelicula = Pelicula(NombrePelicula=NombrePelicula, GeneroPelicula_idGeneroPelicula=GeneroPelicula_idGeneroPelicula, imagen=ruta_imagen)
+            new_pelicula = Pelicula(NombrePelicula=NombrePelicula, GeneroPelicula_idGeneroPelicula=GeneroPelicula_idGeneroPelicula, Imagen=ruta_imagen)
             db.session.add(new_pelicula)
             db.session.commit()
 
