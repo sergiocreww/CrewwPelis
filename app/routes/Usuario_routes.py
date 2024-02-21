@@ -1,6 +1,8 @@
 from flask import Flask, Blueprint, render_template, request, redirect, url_for, session, flash
 from flask_bcrypt import Bcrypt, generate_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from app.models.Pelicula import Pelicula
+from app.models.GeneroPelicula import Genero
 from app.models.Usuario import Usuario
 from app import db
 app = Flask(__name__)
@@ -17,8 +19,10 @@ def verificar_sesion():
 
 @bp.route('/Index')
 def index():
+    peliculas = Pelicula.query.all()
+    generos = Genero.query.all()
     if verificar_sesion():
-        return render_template('Usuarios/index2.html', Usuario=current_user)
+        return render_template('Usuarios/index2.html', Usuario=current_user, peliculas=peliculas, generos=generos)
     else:   
         data = Usuario.query.all()
         return render_template('Usuarios/index2.html', data=data)
@@ -48,7 +52,7 @@ def IniciarSesion():
 
         if not NombreUsuario or not ContrasenaUsuario:
             flash('Todos los campos son obligatorios', 'error')
-            render_template('Usuarios/Login.html') 
+            return render_template('Usuarios/Login.html') 
 
         usuario = Usuario.query.filter_by(NombreUsuario=NombreUsuario).first()
 

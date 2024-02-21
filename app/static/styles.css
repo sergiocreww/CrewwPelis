@@ -29,6 +29,23 @@
 @import url(nice-select.css);
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
+
+/* Estilos para el botón negro */
+.black-button {
+     background-color: black;
+     color: white; /* Texto en color blanco para contrastar con el fondo negro */
+     padding: 5px 10px; /* Ajusta según sea necesario */
+     border: none;
+     border-radius: 5px; /* Bordes redondeados */
+     cursor: pointer;
+ }
+ 
+ /* Estilos para cambiar el color al pasar el ratón por encima */
+ .black-button:hover {
+     color: white; /* Mantener el texto blanco */
+ }
+ 
+
 .buscador{
      
      display: flex;

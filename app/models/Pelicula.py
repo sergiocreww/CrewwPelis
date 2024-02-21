@@ -7,4 +7,5 @@ class Pelicula(db.Model):
     GeneroPelicula_idGeneroPelicula = db.Column(db.Integer, db.ForeignKey('genero.idGenero'))
     Imagen = db.Column(db.String(100), nullable=False)
 
+    genero = db.relationship('Genero', back_populates='peliculas')
     favoritos = db.relationship('Favorito', backref='pelicula', lazy=True)

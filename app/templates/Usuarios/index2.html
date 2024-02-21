@@ -22,7 +22,9 @@
           {% else %}
           {% endif %}
          </div> 
-         <div id="BLR">{% if 'idUsuario' in session %}<a class="read_more" href="{{url_for('usuario.CerrarSesion')}}">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a  class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
+         <div id="BLR">{% if 'idUsuario' in session %}<a class="black-button" href="{{url_for('usuario.CerrarSesion')}}">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a  class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
+         
+         <div id=""><center>{% if session['Rol'] == 'Administrador' %}<a class="black-button" href="">Modificar Usuario</a>{% endif %}{% if session['Rol'] == 'Administrador' %}<a class="black-button" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a><a class="black-button" href="{{url_for('pelicula.editar_eliminar_pelicula')}}">Modificar Pelicula</a></center></div>{% endif %}
             <!-- Agrega esto después de los botones de inicio y cierre de sesión -->
             {% if 'idUsuario' in session %}
             <div id="buscador" class="buscador">
@@ -48,17 +50,16 @@
               </div>
            </div>
         </div>
-        {% if 'user_id' in session %}<center><h5>GENEROS</h5></center>{% endif %}     
-        <form>
-         <center>{% if 'user_id' in session %}<a class="read_more" href="">Modificar Usuario</a>{% endif %}
-            {% if 'user_id' in session %}
+        {% if 'idUsuario' in session %}<center><h5>GENEROS</h5></center>{% endif %}     
+        <center><form>
+            {% if 'idUsuario' in session %}
             <select class="read_more">
                {% for genero in generos %}
                     <option value="{{ genero.idGenero }}">{{ genero.NombreGenero }}</option>
                 {% endfor %}
-            </select>{% endif %}{% if session['Rol'] == 'Administrador' %}<a class="read_more" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a></center>{% endif %}
-            
-        </form>          
+            </select>
+            {% endif %}
+         </form></center>          
      </header>
      
      <div id="about" class="about">
@@ -123,8 +124,27 @@
             </div>
          </div> 
       
-         
+    <div class="row">
+      {% for pelicula in peliculas %}
+      <div class="col-md-4">
+        <div class="gallery-box">
+          <img src="{{ url_for('static', filename=pelicula.Imagen) }}" alt="{{ pelicula.NombrePelicula }}">
+          <h4>{{ pelicula.NombrePelicula }}</h4>
+          <p>{{ pelicula.genero.NombreGenero }}</p>
 
+          <form action="{{ url_for('pelicula.mostrar_peliculas', idPelicula=pelicula.idPelicula) }}" method="get">
+            <button class="black-button" type="submit">Ver Película</button>
+          </form>
+
+          <form action="{{ url_for('pelicula.mostrar_peliculas', idPelicula=pelicula.idPelicula) }}" method="get">
+            <button class="black-button" type="submit">Descargar Película</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>         
+    <br>
+    <br>
       <center><footer>
             <p>&copy; 2024 CREWW. Todos los derechos reservados.</p>
       </footer></center>   

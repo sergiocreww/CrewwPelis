@@ -54,6 +54,29 @@ def insertar_pelicula():
     return render_template('Peliculas/Agregar.html', generos = generos)
 
 
+@bp.route('/editar_eliminar_pelicula', methods=['GET'])
+def editar_eliminar_pelicula():
+    peliculas = Pelicula.query.all()
+    return render_template('Peliculas/EditarEliminar.html', peliculas=peliculas)
+
+@bp.route('/procesar_edicion_eliminacion', methods=['POST'])
+def procesar_edicion_eliminacion():
+    peliculas_seleccionadas = request.form.getlist('seleccionadas')
+
+    # Lógica para procesar las películas seleccionadas, ya sea para editar o eliminar
+
+    return redirect(url_for('pelicula.editar_eliminar_pelicula'))
+
+@bp.route('/eliminar_pelicula', methods=['POST'])
+def eliminar_pelicula():
+    peliculas_seleccionadas = request.form.getlist('seleccionadas')
+
+    # Lógica para eliminar las películas seleccionadas
+
+    return redirect(url_for('pelicula.editar_eliminar_pelicula'))
+
+
+
 
 @bp.route('/buscar_pelicula_por_id/<int:id_pelicula>', methods=['GET', 'POST'])
 def buscar_pelicula_por_id(id_pelicula):
