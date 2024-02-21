@@ -16,9 +16,15 @@
     <header>
         <!-- header inner -->
         <div class="header">
-         <div id="BLR">{% if 'user_id' in session %}<label class="read_more">Sesion Iniciada</label><a class="read_more" href="{{url_for('usuario.CerrarSesion')}}">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a  class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
+         <div id="BLR" >
+         {% if 'idUsuario' in session %}
+         <center><h5>Bienvenido, {{ Usuario.NombreUsuario }} - Sesión Iniciada</h5></center>
+          {% else %}
+          {% endif %}
+         </div> 
+         <div id="BLR">{% if 'idUsuario' in session %}<a class="read_more" href="{{url_for('usuario.CerrarSesion')}}">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a  class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div>
             <!-- Agrega esto después de los botones de inicio y cierre de sesión -->
-            {% if 'user_id' in session %}
+            {% if 'idUsuario' in session %}
             <div id="buscador" class="buscador">
                <h5 id="buscar">BUSCAR PELICULA</h5>
                <form action="{{ url_for('pelicula.buscar_pelicula_por_id', id_pelicula=1) }}" method="GET">
@@ -42,7 +48,6 @@
               </div>
            </div>
         </div>
-
         {% if 'user_id' in session %}<center><h5>GENEROS</h5></center>{% endif %}     
         <form>
          <center>{% if 'user_id' in session %}<a class="read_more" href="">Modificar Usuario</a>{% endif %}
@@ -51,7 +56,7 @@
                {% for genero in generos %}
                     <option value="{{ genero.idGenero }}">{{ genero.NombreGenero }}</option>
                 {% endfor %}
-            </select>{% endif %}{% if 'user_id' in session %}<a class="read_more" href="">Insertar Pelicula</a></center>{% endif %}
+            </select>{% endif %}{% if session['Rol'] == 'Administrador' %}<a class="read_more" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a></center>{% endif %}
             
         </form>          
      </header>
@@ -63,8 +68,14 @@
                <div class="titlepage">
                   <h2>KUNG FU PANDA<span class="green"> 4</span></h2>
                   <p>Kung Fu Panda 4 es una película de comedia animada de artes marciales producida por DreamWorks Animation y distribuida por Universal Pictures. Es la cuarta entrega de la franquicia Kung Fu Panda, y la secuela de Kung Fu Panda 3</p>
-                  <a class="read_more" href="{{url_for('pelicula.mostrar_peliculas')}}" >Ver Pelicula</a>
-                  <a class="read_more" href="">Descargar Pelicula</a>
+                  {% if 'idUsuario' in session %}
+                  <a class="read_more" href="{{url_for('pelicula.mostrar_peliculas')}}">Ver Pelicula</a>
+                  <a class="read_more">Descargar Pelicula</a>
+                  {% else %}
+                  <button class="read_more">Ver Pelicula</button>
+                  <button class="read_more">Descargar Pelicula</button>
+                  <p>Inicia sesión o registrate para acceder a estas funciones.</p>
+                  {% endif %}
                </div>
             </div>
             <div class="col-md-7">
@@ -87,20 +98,21 @@
                <div class="titlepage">
                   <h2>DEADPOOL<span class="green"> 3</span></h2>
                   <p>Lobezno se recupera de sus heridas cuando se cruza con el bocazas, Deadpool, que ha viajado en el tiempo para curarlo con la esperanza de hacerse amigos y formar un equipo para acabar con un enemigo común</p>
-                  {% if 'user_id' in session %}
+                  {% if 'idUsuario' in session %}
                   <a class="read_more" href="{{url_for('pelicula.mostrar_peliculas')}}">Ver Pelicula</a>
                   <a class="read_more">Descargar Pelicula</a>
                   {% else %}
                   <button class="read_more">Ver Pelicula</button>
                   <button class="read_more">Descargar Pelicula</button>
-                  <p>Inicia sesión para acceder a estas funciones.</p>
-              {% endif %}
+                  <p>Inicia sesión o registrate para acceder a estas funciones.</p>
+                  {% endif %}
                </div>
             </div>
          </div>
       </div>
-   </div>      
-   <!-- <div id="gallery"  class="gallery">
+   </div>
+   
+    <div id="gallery"  class="gallery">
       <div class="container">
          <div class="row">
             <div class="col-md-12">
@@ -109,8 +121,14 @@
                   <p>"Donde las luces se apagan y la magia comienza"</p>
                </div>
             </div>
-         </div>
-         <div class="row">
+         </div> 
+      
+         
+
+      <center><footer>
+            <p>&copy; 2024 CREWW. Todos los derechos reservados.</p>
+      </footer></center>   
+         <!-- <div class="row">
             <div class="col-md-4 col-sm-6">
                <div class="gallery_img">
                   <figure><img src="{{ url_for('static', filename='images/GranTurismo.jpg') }}"></figure>
@@ -221,38 +239,8 @@
             </div>
          </div>
       </div>
-   </div>    -->
+   </div>  -->
 
-<!-- En tu archivo 'index2.html' -->
 
-<div id="gallery"  class="gallery">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-12">
-            <div class="titlepage">
-               <h2>Las mejores <span class="green">pelis</span></h2>
-               <p>"Donde las luces se apagan y la magia comienza"</p>
-            </div>
-         </div>
-</div>
-
-{% block content %}
-    <h1>Listado de Películas</h1>
-    <ul>
-        {% for pelicula in peliculas %}
-            <li>
-                <strong>ID:</strong> {{ pelicula.idPelicula }}<br>
-                <strong>Título:</strong> {{ pelicula.NombrePelicula }}<br>
-                <strong>Género:</strong> {{ pelicula.GeneroPelicula_idGeneroPelicula }}<br>
-                {% if pelicula.Imagen %}
-                    <img src="{{ url_for('static', filename='images/' + pelicula.Imagen) }}" alt="{{ pelicula.NombrePelicula }}">
-                {% endif %}
-                <br>
-            </li>
-        {% endfor %}
-    </ul>
-{% endblock %}
-
-   
 </body>
 </html>
