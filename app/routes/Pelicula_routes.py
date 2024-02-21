@@ -69,7 +69,7 @@ def buscar_pelicula_por_id(id_pelicula):
             'Imagen': pelicula.Imagen
         })
     else:
-        # Si no se encuentra la película, devolver un mensaje de error
+        # Si no se encuentra   la película, devolver un mensaje de error
         return jsonify({'error': 'Película no encontrada'}), 404
 
 
