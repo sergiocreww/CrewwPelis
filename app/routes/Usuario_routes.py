@@ -61,7 +61,7 @@ def IniciarSesion():
                 login_user(usuario)
                 session['idUsuario'] = usuario.idUsuario
                 session['NombreUsuario'] = usuario.NombreUsuario
-                session['Rol'] = usuario.Rol
+                session['Rol'] = usuario.Rol_idRol
 
                 flash('Inicio de Sesion Exitoso', 'succes')
                 return redirect(url_for('usuario.index'))
@@ -88,6 +88,44 @@ def CerrarSesion():
     session.clear()  # Limpiar la sesión manualmente
     flash('Cierre de sesión exitoso.', 'success')
     return redirect(url_for('usuario.index'))
+
+
+@bp.route('/usuario/<int:idUsuario>', methods=['GET'])
+def mostrar_usuario(idUsuario):
+    usuarios = Usuario.query.get_or_404(idUsuario)
+    return render_template('Usuarios/ModificarUsuario.html', usuarios=usuarios)
+
+
+
+@bp.route('/usuario/<int:idUsuario>/modificar', methods=['GET', 'POST'])
+def modificar_usuario(idUsuario):
+    usuario = Usuario.query.get_or_404(idUsuario)
+
+    if request.method == 'POST':
+        # Procesar el formulario de modificación
+        usuario.NombreUsuario = request.form['NombreUsuario']
+        usuario.ContrasenaUsuario = generate_password_hash(request.form['ContrasenaUsuario']).decode('utf-8')
+        # Agregar otros campos según sea necesario
+        
+        db.session.commit()
+        flash('Usuario modificado correctamente', 'success')
+        return redirect(url_for('usuario.mostrar_usuario', idUsuario=idUsuario))
+
+    return render_template('Usuarios/ModificarUsuario.html', usuario=usuario)
+
+
+@bp.route('/usuario/<int:idUsuario>/eliminar', methods=['GET', 'POST'])
+def eliminar_usuario(idUsuario):
+    usuario = Usuario.query.get_or_404(idUsuario)
+
+    if request.method == 'POST':
+        # Eliminar el usuario
+        db.session.delete(usuario)
+        db.session.commit()
+        flash('Usuario eliminado correctamente', 'success')
+        return redirect(url_for('usuario.mostrar_usuario'))
+
+    return render_template('Usuarios/ModificarUsuario.html', usuario=usuario)
 
 
  

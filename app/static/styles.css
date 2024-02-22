@@ -30,6 +30,21 @@
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
 
+.Div1{
+     display: flex;
+}
+
+.DivDiv h5{
+     margin-right: 10px;
+}
+
+.DivDiv{
+     display: flex;
+     width: 1000px;     
+}
+
+
+
 /* Estilos para el botón negro */
 .black-button {
      background-color: black;

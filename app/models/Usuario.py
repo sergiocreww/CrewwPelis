@@ -6,7 +6,7 @@ class Usuario(UserMixin, db.Model):
     idUsuario = db.Column(db.Integer, primary_key=True)
     NombreUsuario = db.Column(db.String(50), nullable=False)
     ContrasenaUsuario = db.Column(db.String(256), nullable=False)
-    Rol = db.Column(db.String(20), nullable=False, default="Usuario")
+    Rol_idRol = db.Column(db.Integer, db.ForeignKey('rol.idRol'))
 
     def __repr__(self):
         return f"Usuario('{self.NombreUsuario}', '{self.Rol}')"    
