@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from app.models.Pelicula import Pelicula
-from app.models.GeneroPelicula import Genero 
+from app.models.GeneroPelicula import Genero
+from app.models.Usuario import Usuario 
 from app import db
 import os
 import app
@@ -24,7 +25,7 @@ def mostrar_peliculas():
     peliculas = Pelicula.query.all()
     # Renderizar una plantilla HTML que muestre la información de las películas
     return render_template('Usuarios/index2.html', peliculas=peliculas)
-
+suarios
 
 
 @bp.route('/insertar_pelicula', methods=['GET', 'POST']) 

@@ -18,7 +18,7 @@
       <div>
         <div class="Div1">
         <div class="DivDiv">
-         {% if session['Rol'] ==1 %}<h5>Administrador</h5><a class="black-button" href="{{url_for('usuario.mostrar_usuario' idUsuario=usuario.idUsuario)}}">Modificar Usuario</a><a class="black-button" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a><a class="black-button" href="{{url_for('pelicula.editar_eliminar_pelicula')}}">Modificar Pelicula</a>{% endif %}</div>
+         {% if session['Rol'] ==1 %}<h5>Administrador</h5><a class="black-button" href="{{url_for('usuario.mostrar_usuario', idUsuario=Usuario.idUsuario)}}">Modificar Usuario</a><a class="black-button" href="{{url_for('pelicula.insertar_pelicula')}}">Insertar Pelicula</a><a class="black-button" href="{{url_for('pelicula.editar_eliminar_pelicula')}}">Modificar Pelicula</a>{% endif %}</div>
          
          <div class="DivDiv" id="BLR">{% if 'idUsuario' in session %}<a class="black-button" href="{{url_for('usuario.CerrarSesion')}}">Cerrar Sesion</a>{% else %}<a class="read_more" href="{{url_for('usuario.IniciarSesion')}}">Iniciar Sesion</a><a  class="read_more" href="{{url_for('usuario.Registro')}}">Registrarse</a>{% endif %}</div> 
          </div>
