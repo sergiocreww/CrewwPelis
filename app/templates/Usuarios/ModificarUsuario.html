@@ -3,29 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesFor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">    
     <title>CrewwPelis Modificar Usuario</title>
 </head>
 <body>
+    <a href="javascript:history.go(-1)" class="back-button" style="display: inline-block; padding: 5px; width: 60px; height: 60px;">
+        <img src="{{ url_for('static', filename='images/Volver.png') }}" alt="Volver">
+     </a>   
+      <center><div class="header">
+          <div class="container">
+             <div class="row">
+                <div class="col-md-12 col-sm-3 col logo_section">
+                   <div class="full">
+                      <div class="center-desk">
+                         <div class="logo">
+                            <img src="{{ url_for('static', filename='images/Logo2.jpeg') }}">
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div></center>
 
-    <form method="post" action="{{ url_for('usuario.modificar_usuario', idUsuario=usuario.idUsuario) }}">
-        <!-- Campos del formulario -->
-        <label for="NombreUsuario">Nombre de Usuario:</label>
-        <input type="text" id="NombreUsuario" name="NombreUsuario" value="{{ usuario.NombreUsuario }}" required>
-    
-        <label for="ContrasenaUsuario">Contraseña:</label>
-        <input type="password" id="ContrasenaUsuario" name="ContrasenaUsuario" required>
-    
-        <!-- Agrega otros campos según sea necesario -->
-    
-        <button type="submit">Guardar cambios</button>
-    </form>
 
-    <form method="post" action="{{ url_for('usuario.eliminar_usuario', idUsuario=usuario.idUsuario) }}">
-        <p>¿Estás seguro de que deseas eliminar al usuario {{ usuario.NombreUsuario }}?</p>
-        <button type="submit">Sí, eliminar</button>
-    </form>
+
+    <div id="gallery"  class="gallery">           
+    <div class="form">
+        <h2>Usuarios</h2>
+    {% if usuario_seleccionado %}
+        <form method="post" action="{{ url_for('usuario.modificar_eliminar_usuario') }}">
+            <label for="usuario">Seleccionar Usuario:</label>
+            <select id="usuario" name="usuario">
+                {% for usuario in usuarios %}
+                    <option value="{{ usuario.id }}">{{ usuario.NombreUsuario }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="nuevo_rol"></label>
+            <select id="nuevo_rol" name="nuevo_rol">
+                <option value="admin">Administrador</option>
+                <option value="usuario">Usuario</option>
+                <!-- Agrega otras opciones según tus roles -->
+            </select>
+
+            <button class="black-button" type="submit" name="accion" value="guardar_cambios">Guardar Cambios</button>
+            <button class="black-button" type="submit" name="accion" value="eliminar">Eliminar Usuario</button>
+        </form>
+    {% endif %}
     
-        
+    </div>
+    </div>
+
     
 </body>
 </html>

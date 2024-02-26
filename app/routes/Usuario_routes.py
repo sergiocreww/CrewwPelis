@@ -40,7 +40,7 @@ def Registro():
         db.session.commit()
 
         flash('Registro exitoso. Ahora puedes iniciar sesión.', 'success')
-        redirect(url_for('usuario.IniciarSesion'))
+        return render_template('Usuarios/Login.html')
 
     return render_template('Usuarios/Registro.html')
 
@@ -92,40 +92,43 @@ def CerrarSesion():
 
 @bp.route('/usuario/<int:idUsuario>', methods=['GET'])
 def mostrar_usuario(idUsuario):
-    usuarios = Usuario.query.get_or_404(idUsuario)
-    return render_template('Usuarios/ModificarUsuario.html', usuarios=usuarios)
+    usuarios = Usuario.query.all()
+    usuario_seleccionado = Usuario.query.get_or_404(idUsuario)
+    return render_template('Usuarios/ModificarUsuario.html', usuarios=usuarios, usuario_seleccionado=usuario_seleccionado)
+
+
+@bp.route('/modificar_eliminar_usuario', methods=['POST'])
+def modificar_eliminar_usuario():
+    id_usuario_seleccionado = request.form.get('usuario')
+    nuevo_rol = request.form.get('nuevo_rol')
+    accion = request.form.get('accion')
+
+    if id_usuario_seleccionado:
+        usuario = Usuario.query.get_or_404(int(id_usuario_seleccionado))
+
+        if accion == 'guardar_cambios':
+            # Modificar el rol
+            if nuevo_rol:
+                usuario.rol = nuevo_rol
+                db.session.commit()
+                flash('Rol del usuario modificado correctamente', 'success')
+            else:
+                flash('No se proporcionó un nuevo rol', 'warning')
+
+        elif accion == 'eliminar':
+            # Eliminar el usuario
+            db.session.delete(usuario)
+            db.session.commit()
+            flash('Usuario eliminado correctamente', 'success')
+
+    else:
+        flash('Por favor, selecciona un usuario antes de realizar la acción.', 'warning')
+
+    return redirect(url_for('usuario.mostrar_usuario', idUsuario=id_usuario_seleccionado))
 
 
 
-@bp.route('/usuario/<int:idUsuario>/modificar', methods=['GET', 'POST'])
-def modificar_usuario(idUsuario):
-    usuario = Usuario.query.get_or_404(idUsuario)
 
-    if request.method == 'POST':
-        # Procesar el formulario de modificación
-        usuario.NombreUsuario = request.form['NombreUsuario']
-        usuario.ContrasenaUsuario = generate_password_hash(request.form['ContrasenaUsuario']).decode('utf-8')
-        # Agregar otros campos según sea necesario
-        
-        db.session.commit()
-        flash('Usuario modificado correctamente', 'success')
-        return redirect(url_for('usuario.mostrar_usuario', idUsuario=idUsuario))
-
-    return render_template('Usuarios/ModificarUsuario.html', usuario=usuario)
-
-
-@bp.route('/usuario/<int:idUsuario>/eliminar', methods=['GET', 'POST'])
-def eliminar_usuario(idUsuario):
-    usuario = Usuario.query.get_or_404(idUsuario)
-
-    if request.method == 'POST':
-        # Eliminar el usuario
-        db.session.delete(usuario)
-        db.session.commit()
-        flash('Usuario eliminado correctamente', 'success')
-        return redirect(url_for('usuario.mostrar_usuario'))
-
-    return render_template('Usuarios/ModificarUsuario.html', usuario=usuario)
 
 
  

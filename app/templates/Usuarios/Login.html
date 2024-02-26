@@ -38,11 +38,11 @@
             <form method="POST" action="{{ url_for('usuario.IniciarSesion') }}">
             
               <div class="field-wrap">
-                <input type="text" id="NombreUsuario" name="Nombre" required>
+                <input type="text" id="NombreUsuario" name="Nombre" placeholder="Ingrese su Nombre de Usuario"  required>
               </div>
               
               <div class="field-wrap">
-                <input type="password" id="ContrasenaUsuario" name="Contrasena" required>
+                <input type="password" id="ContrasenaUsuario" name="Contrasena" placeholder="Ingrese su Contrasena" required>
               </div>
               
               <p class="forgot"><a href="#">Forgot Password?</a></p>

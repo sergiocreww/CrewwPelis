@@ -27,28 +27,28 @@
           </div>
        </div></center>
        
-       <div id="gallery" class="gallery">
-      <div class="">
+
+      <div id="gallery" class="gallery">
+      <center><div class="">
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <h2>Editar o Eliminar Películas</h2>
+              <h2>Eliminar Películas</h2>
               <form method="POST" action="{{ url_for('pelicula.procesar_edicion_eliminacion') }}">
                 {% for pelicula in peliculas %}
-                  <div>
-                    <label>
-                      <input type="checkbox" name="seleccionadas" value="{{ pelicula.idPelicula }}">
-                      {{ pelicula.NombrePelicula }} - {{ pelicula.genero.NombreGenero }}
-                    </label>
-                  </div>
+                    <div>
+                        <label>
+                            <input type="checkbox" name="seleccionadas" value="{{ pelicula.idPelicula }}">
+                            {{ pelicula.NombrePelicula }} - {{ pelicula.genero.NombreGenero }}
+                        </label>
+                    </div>
                 {% endfor %}
-                <button type="submit" class="black-button">Editar Película</button>
                 <button type="submit" class="black-button" formaction="{{ url_for('pelicula.eliminar_pelicula') }}">Eliminar Película</button>
-              </form>
+            </form>
             </div>
           </div>
         </div>
-      </div> 
+      </div></center> 
     </div>     
 </body>
 </html>

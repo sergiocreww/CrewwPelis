@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='jquery.fancybox.min.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome.css')}}">
     <title>CrewwPelis</title>
-
+  
 </head>
 <body>
     <header>
@@ -32,7 +32,7 @@
          </div>   
             <div id="buscador" class="buscador">
                <h5 id="buscar">BUSCAR PELICULA</h5>
-               <form action="{{ url_for('pelicula.buscar_pelicula_por_id', id_pelicula=1) }}" method="GET">
+               <form action="" method="GET">
                   <input type="text" name="query" placeholder="Ingrese el título de la película">
                   <button class="" type="submit">Buscar</button>
                </form>
@@ -54,17 +54,7 @@
               </div>
            </div>
         </div>
-      </div>
-        {% if 'idUsuario' in session %}<center><h5>GENEROS</h5></center>{% endif %}     
-        <center><form>
-            {% if 'idUsuario' in session %}
-            <select class="read_more">
-               {% for genero in generos %}
-                    <option value="{{ genero.idGenero }}">{{ genero.NombreGenero }}</option>
-                {% endfor %}
-            </select>
-            {% endif %}
-         </form></center>          
+      </div>        
      </header>
      
      <div id="about" class="about">
@@ -75,8 +65,8 @@
                   <h2>KUNG FU PANDA<span class="green"> 4</span></h2>
                   <p>Kung Fu Panda 4 es una película de comedia animada de artes marciales producida por DreamWorks Animation y distribuida por Universal Pictures. Es la cuarta entrega de la franquicia Kung Fu Panda, y la secuela de Kung Fu Panda 3</p>
                   {% if 'idUsuario' in session %}
-                  <a class="read_more" href="{{url_for('pelicula.mostrar_peliculas')}}">Ver Pelicula</a>
-                  <a class="read_more">Descargar Pelicula</a>
+                  <a class="read_more" href="https://youtu.be/kg3Q63gzF6I">Ver Pelicula</a>
+                  <a class="read_more" href="">Descargar Pelicula</a>
                   {% else %}
                   <button class="read_more">Ver Pelicula</button>
                   <button class="read_more">Descargar Pelicula</button>
@@ -105,8 +95,8 @@
                   <h2>DEADPOOL<span class="green"> 3</span></h2>
                   <p>Lobezno se recupera de sus heridas cuando se cruza con el bocazas, Deadpool, que ha viajado en el tiempo para curarlo con la esperanza de hacerse amigos y formar un equipo para acabar con un enemigo común</p>
                   {% if 'idUsuario' in session %}
-                  <a class="read_more" href="{{url_for('pelicula.mostrar_peliculas')}}">Ver Pelicula</a>
-                  <a class="read_more">Descargar Pelicula</a>
+                  <a class="read_more" href="https://youtu.be/kxyyKU8rgaU">Ver Pelicula</a>
+                  <a class="read_more" href="">Descargar Pelicula</a>
                   {% else %}
                   <button class="read_more">Ver Pelicula</button>
                   <button class="read_more">Descargar Pelicula</button>
@@ -128,26 +118,44 @@
                </div>
             </div>
          </div> 
-      
-    <div class="row">
-      {% for pelicula in peliculas %}
-      <div class="col-md-4">
-        <div class="gallery-box">
-          <img src="{{ url_for('static', filename='images/'+pelicula.Imagen) }}" alt="{{ pelicula.NombrePelicula }}">
-          <h4>{{ pelicula.NombrePelicula }}</h4>
-          <p>{{ pelicula.genero.NombreGenero }}</p>
+        
+         <style>
+            .gallery-box img {
+              width: 100%; /* Hacer que la imagen ocupe el 100% del contenedor */
+              height: 550px; /* Establecer la altura deseada, ajusta según tus necesidades */
+              object-fit: cover; /* Ajustar la imagen manteniendo la relación de aspecto */
+            }
+          </style>
+       
+      {% if 'idUsuario' in session %}
 
-          <form action="{{ url_for('pelicula.mostrar_peliculas', idPelicula=pelicula.idPelicula) }}" method="get">
-            <button class="black-button" type="submit">Ver Película</button>
-          </form>
+      {% endif %} 
 
-          <form action="{{ url_for('pelicula.mostrar_peliculas', idPelicula=pelicula.idPelicula) }}" method="get">
-            <button class="black-button" type="submit">Descargar Película</button>
-          </form>
-        </div>
-      </div>
-      {% endfor %}
-    </div>         
+
+   <br>
+   <br>
+   <br>
+
+      <div class="row" id="listaPeliculas">
+         {% for pelicula in peliculas %}
+            <div class="col-md-4 pelicula" data-genero-id="{{ pelicula.genero.id }}">
+               <div class="gallery-box">
+                     <img src="{{ url_for('static', filename='images/' + pelicula.Imagen) }}" alt="{{ pelicula.NombrePelicula }}">
+                     <h4>{{ pelicula.NombrePelicula }}</h4>
+                     <p>{{ pelicula.genero.NombreGenero }}</p>
+                     <form action="{{ url_for('pelicula.ver_pelicula_externa') }}" method="get">
+                        <input type="hidden" name="NombrePelicula" value="{{ pelicula.NombrePelicula }}">
+                        <button class="black-button" type="submit">Ver Película</button>
+                     </form>
+                     <form action="{{ url_for('pelicula.mostrar_peliculas', idPelicula=pelicula.idPelicula) }}" method="get">
+                        <button class="black-button" type="submit">Descargar Película</button>
+                     </form>
+               </div>
+            </div>
+         {% endfor %}
+      </div> 
+   
+
     <br>
     <br>
       <center><footer>
